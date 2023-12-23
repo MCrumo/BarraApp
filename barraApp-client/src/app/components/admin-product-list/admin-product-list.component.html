@@ -1,0 +1,60 @@
+<div class="ba-product-list-header">
+    <div style="flex-grow: 1; display: flex;">
+        <div>
+            <button class="btn btn-rounded" (click)="backToFamilies()" title="Volver a familias">
+                <i class="bi bi-arrow-left" style="font-size: x-large;"></i>
+            </button>
+        </div>
+        <div style="flex-grow: 1; text-align: center; font-size: x-large; font-weight: 600;">
+            {{family.nombre}}
+        </div>
+    </div>
+    <div class="form-check" style="text-align: right;">
+        <input class="form-check-input" type="checkbox" value="" id="showDisabled" [(ngModel)]="includeDisabled"
+            (change)="includeDisabledChanged($event)">
+        <label class="form-check-label" for="showDisabled">
+            Mostrar deshabilitados
+        </label>
+    </div>
+</div>
+<div class="container" style="max-height: 100%; overflow: auto;">
+    <div class="row">
+        <div class="col-6 col-md-4 col-lg-3" *ngFor="let producto of productos">
+            <div class="card">
+                <img [src]="producto.fotoUrl" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <div style="flex-grow: 1;">{{ producto.desc }}</div>
+                    <div class="ba-card-product-detail">
+                        <div style="flex-grow: 1; font-weight: 600;">
+                            {{ producto.price|number:'1.2-2'}}€
+                            <span style="font-weight: 300; font-style: italic;">
+                                (IVA: {{producto.iva|number:'1.0-2'}}%)
+                            </span>
+                        </div>
+                        <div style="display: flex; justify-content: space-around;">
+                            <button *ngIf="!producto.disabled" class="btn btn-rounded"
+                                (click)="deshabilitarProducto(producto.id)" title="Deshabilitar producto">
+                                <i class="bi bi-trash" style="font-size: x-large;"></i>
+                            </button>
+                            <button *ngIf="producto.disabled" class="btn btn-rounded"
+                                (click)="habilitarProducto(producto.id)" title="Habilitar producto">
+                                <i class="bi bi-recycle" style="font-size: x-large;"></i>
+                            </button>
+                            <button class="btn btn-rounded" (click)="editProduct(producto)" title="Editar producto">
+                                <i class="bi bi-pencil" style="font-size: x-large;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ba-admin-product-editor [family]="family" [product]="productSelected"
+    (productUpdated)="onProductUpdated($event)"></ba-admin-product-editor>
+<div class="ba-add-product-button">
+    <button class="btn btn-primary rounded-circle" (click)="newProduct()" title="Añadir producto">
+        <i class="bi bi-plus" style="font-size: x-large;"></i>
+    </button>
+</div>

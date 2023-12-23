@@ -1,0 +1,45 @@
+<div *ngIf="!family" class="container" style="display: flex; flex-direction: column; padding: 5px 5px 10px 5px;">
+    <div style="display: flex; position: relative; flex-direction: column; font-weight: 700; padding: 5px 0;">
+        <div style="position: absolute; cursor: pointer; top:0" (click)="selectProduct(null)">
+            <i class="bi bi-arrow-left" style="font-size: x-large;"></i>
+        </div>
+        <div style="text-align: center">
+            Selecciona un grupo de productos
+        </div>
+    </div>
+    <div class="row" style="flex-grow: 1; overflow: auto;">
+        <div class="col-6 col-md-4 col-lg-3" *ngFor="let familyItem of familyList">
+            <div class="card flex-fill" (click)="viewProducts(familyItem)">
+                <img [src]="familyItem.fotoUrl" (error)="imageError($event, familyItem)" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{ familyItem.nombre }}</h5>
+                    <div>{{ familyItem.desc }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="family" class="container"  style="display: flex; flex-direction: column; padding: 5px 5px 10px 5px;">
+    <div style="display: flex; position: relative; flex-direction: column; font-weight: 700; padding: 5px 0;">
+        <div style="position: absolute; cursor: pointer; top:0" (click)="family=null">
+            <i class="bi bi-arrow-left" style="font-size: x-large;"></i>
+        </div>
+        <div style="text-align: center">
+            Selecciona un producto
+        </div>
+    </div>
+    <div class="row" style="flex-grow: 1; overflow: auto;">
+        <div class="col-6 col-md-4 col-lg-3" *ngFor="let product of productList">
+            <div class="card flex-fill" (click)="selectProduct(product)">
+                <img [src]="product.fotoUrl" (error)="imageError($event, product)" class="card-img-top">
+                <div class="card-body">
+                    <div class="card-title">{{ product.nombre }}</div>
+                    <div style="font-weight: 900;">{{ product.price|number:'1.2-2'}}€</div>
+                    <div style="font-weight: 200; font-size: smaller; line-height: normal;">
+                        {{ product.desc }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

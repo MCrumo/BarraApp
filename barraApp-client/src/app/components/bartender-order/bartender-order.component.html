@@ -1,0 +1,40 @@
+<div *ngIf="currentOrder" class="d-flex flex-column" style="flex-grow: 1;">
+    <div class="overflow-auto" style="flex-grow: 1; font-size: x-large;">
+
+        <div *ngIf="currentOrder" class="d-flex flex-column">
+            <div class="row justify-content-center">
+                <div class="col-2 col-md-2"></div>
+                <div class="col-3 col-md-2" style="text-align: center;"><strong>Cantidad</strong></div>
+                <div class="col-4 col-md-3"><strong>Producto</strong></div>
+            </div>
+            <div *ngFor="let line of currentOrder.lines" class="row justify-content-center" style="cursor: pointer;"
+                (click)="selectFile(line)" [ngClass]="{'ba-selected':line.selected}">
+                <div class="col-0 col-md-2"></div>
+                <div class="col-3 col-md-2" style="text-align: center;">
+                    {{ line.quantity }}
+                </div>
+                <div class="col-7 col-md-3">{{ line.product.nombre }}</div>
+                <div *ngIf="line.selected" class="col-2 col-md-2"
+                    style="display: flex; align-items: center;">
+                    <i class="bi bi-person-check-fill"></i>
+                </div>
+                <div *ngIf="!line.selected" class="col-2 col-md-2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="py-3 border-top">
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-4 text-center" style="font-size: x-large; font-weight: 600;">
+                Total: {{ formatCurrency(currentOrder.totalAmount) }}
+            </div>
+            <div class="col-6 col-md-4 text-center" style="font-size: x-large; font-weight: 600;">
+                Pendiente: {{ currentOrder.deliveryPending }}
+            </div>
+            <div class="col-12 col-md-4 text-center">
+                <button class="btn btn-primary" (click)="orderDelivered()" [disabled]="currentOrder.deliveryPending">
+                    Registrar entrega
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

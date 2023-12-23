@@ -1,0 +1,34 @@
+<div class="ba-header">
+    <img src="/assets/images/logo-gran.png" style="height: 50px">
+    <div *ngIf="authenticationService.user" style="display: flex;">
+        <div style="font-weight: 600; margin-right: 10px">
+            {{authenticationService.user.name}}
+        </div>
+        <div (click)="showMenu=!showMenu">
+            <i class="bi bi-three-dots-vertical"></i>
+        </div>
+    </div>
+    <div *ngIf="showMenu" class="ba-menu">
+        <div style="text-align: right; padding-right: 5px;">
+            <i class="bi bi-x-lg" (click)="showMenu=false" style="cursor: pointer;"></i>
+        </div>
+        <div *ngIf="authenticationService.user.role==='admin'" style="padding: 0 5px">
+            <a class="nav-link active ba-menu-item" aria-current="page" (click)="menuOption('/admin/families')">
+                Productos
+            </a>
+            <a class="nav-link active ba-menu-item" aria-current="page" (click)="menuOption('/admin/users')">
+                Usuarios
+            </a>
+            <!-- <a class="nav-link active ba-menu-item" aria-current="page" (click)="menuOption('/admin/statistics')">
+                Estadísticas
+            </a> -->
+            <a class="nav-link active ba-menu-item" aria-current="page" (click)="menuOption('/admin/config')">
+                Configuración
+            </a>
+            <hr>
+        </div>
+        <div (click)="authenticationService.logout()" class="ba-menu-item">
+            Cerrar sesión
+        </div>
+    </div>
+</div>

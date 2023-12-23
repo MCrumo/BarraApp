@@ -1,0 +1,42 @@
+<div *ngIf="family" class="container">
+    <div>
+        <form #familiaPost="ngForm" (ngSubmit)="onSubmit(familiaPost.value)">
+            <h3>Editor de familias</h3>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="name" class="form-control" name="name" [(ngModel)]="editFamily.nombre" required>
+                <label for="name">Nombre</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="description" class="form-control" name="description"
+                    [(ngModel)]="editFamily.desc" required>
+                <label for="description">Descripcion</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="number" id="ageLimit" class="form-control" name="ageLimit"
+                    [(ngModel)]="editFamily.agelimit" required>
+                <label for="ageLimit">Límite de edad</label>
+            </div>
+            <div class="mb-4 d-flex justify-content-center" *ngIf="preview">
+                <div style="position: relative;">
+                    <img width="150px" [src]="preview" alt="" style="margin-top: 20px; border-style: solid; border-width: thin;">
+                    <div class="btn btn-primary rounded-circle"
+                        style="margin-bottom: 5px; align-items: center; position:absolute; right: -25px;">
+                        <div>
+                            <i class="bi bi-pencil" style="font-size: x-large;"></i>
+                            <input type="file" accept=".jpg,.png" class="form-control" id="img"
+                                (change)="upload($event)" style="position: absolute; top: 0; right: 0; opacity:0"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding-bottom: 10px;">
+                <div style="text-align: center;">
+                    <button type="button" class="btn btn-outline-secondary" (click)="closeDialog()">Cancelar</button>
+                </div>
+                <div style="text-align: center">
+                    <button type="submit" class="btn btn-primary" [disabled]="familiaPost.invalid||(familiaPost.pristine && !imageChanged)">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

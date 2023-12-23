@@ -1,0 +1,25 @@
+<div class="ba-family-list-header">
+    <div style="flex-grow: 1; text-align: center; font-size: x-large; font-weight: 600;">
+        Usuarios
+    </div>
+</div>
+<div class="container" style="max-height: 100%; overflow: auto; display: flex; justify-content: center;">
+    <table style="width: 100%; max-width: 500px;">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Permisos</th>
+                <th style="text-align: center;">Edad</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let user of users" (click)="editUser(user)" class="ba-usertable-row">
+            <td>
+                <div class="ba-user-name">{{user.fullName}}</div>
+                <div class="ba-user-email">{{user.email}}</div>
+            </td>
+            <td>{{user.role}}</td>
+            <td style="text-align: center;">{{user.age}}</td>
+        </tr>
+    </table>
+</div>
+<ba-admin-user-editor [user]="userSelected" (userUpdated)="onUserUpdated($event)"></ba-admin-user-editor>

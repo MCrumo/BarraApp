@@ -1,0 +1,51 @@
+.btn-round {
+    padding: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+[class*="col-"]:not(:last-of-type) {
+    margin-bottom: 10px;
+}
+
+.row {
+    --bs-gutter-x: 0;
+}
+
+.ba-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #00000073;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .payment-container {
+        background: white;
+        padding: 80px 5px;
+        height: 50%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        .spinner-container {
+            position: absolute;
+            background: #00000073;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    .product-selector-container{
+        width: 90%;
+        height: 90%;
+        background-color: white;
+    }
+}

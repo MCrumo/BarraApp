@@ -1,0 +1,22 @@
+form {
+    padding: 30px 20px 0 20px;
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.ba-control-group {
+    border-style: solid;
+    border-width: thin;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    .ba-label {
+        margin-top: -18px;
+        background: white;
+        width: fit-content;
+        padding: 0 5px;
+        margin-left: 25px;
+        border-radius: 5px;
+    }
+}

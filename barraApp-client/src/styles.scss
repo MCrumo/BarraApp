@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+html,
+body {
+    height: 100%;
+}
+
+ba-root {
+    height: 100%;
+    display: block;
+}
+
+ba-login,
+ba-customer-product-picker,
+ba-bartender-scan,
+ba-admin-family-list,
+ba-admin-product-list,
+ba-bartender-order,
+ba-admin-user-list,
+ba-admin-configuration,
+ba-customer-cart {
+    flex-grow: 1;
+    display: flex;
+}
+
+ba-admin-family-list,
+ba-admin-user-list,
+ba-admin-product-list{
+    flex-direction: column;
+}
+
+ba-admin-product-list,
+ba-admin-family-list{
+    position: relative;
+}
+
+ba-customer-home,
+ba-customer-payment-ok {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+

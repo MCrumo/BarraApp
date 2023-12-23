@@ -1,0 +1,144 @@
+<div style="display: flex; flex-grow: 1; flex-direction: column;">
+    <div style="position: relative;">
+        <h3 style="text-align: center">Configuración</h3>
+        <div style="display: flex; justify-content: space-between; padding-bottom: 10px; position:absolute; top: 10px; right: 20px;">
+            <div *ngIf="adminPost.dirty" style="text-align: center">
+                <button type="submit" class="btn btn-primary" (click)="updateConfig()"
+                    [disabled]="adminPost.invalid">Guardar</button>
+            </div>
+        </div>
+    </div>
+    <form #adminPost="ngForm">
+        <div class="form-floating" style="margin-bottom:5px">
+            <input type="text" id="name" class="form-control" name="name" [(ngModel)]="editConfig.name" required>
+            <label for="name">Nombre del evento</label>
+        </div>
+        <div class="form-floating" style="margin-bottom:5px">
+            <input type="text" id="description" class="form-control" name="description"
+                [(ngModel)]="editConfig.description" required>
+            <label for="description">Descripcion del evento</label>
+        </div>
+        <div style="display:flex">
+            <div class="form-floating" style="margin-bottom:5px; flex-grow:1; padding-right: 3px;">
+                <input type="date" id="initDate" class="form-control" name="initDate" [(ngModel)]="initDate"
+                    required (change)="onChangeInitDate($event)">
+                <label for="initDate">Fecha inicio</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px; flex-grow:1; padding-left: 3px;">
+                <input type="date" id="endDate" class="form-control" name="endDate" [(ngModel)]="endDate"
+                    required (change)="onChangeEndDate($event)">
+                <label for="endDate">Fecha fin</label>
+            </div>
+        </div>
+        <div class="ba-control-group">
+            <div class="form-check ba-label">
+                <input class="form-check-input" type="checkbox" id="redsysEnabled"
+                    [(ngModel)]="editConfig.redsysEnabled" name="redsysEnabled">
+                <label class="form-check-label" for="redsysEnabled">
+                    Redsys
+                </label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="redsysUrl" class="form-control" name="redsysUrl"
+                    [(ngModel)]="editConfig.redsysUrl" [required]="editConfig.redsysEnabled"
+                    [disabled]="!editConfig.redsysEnabled">
+                <label for="redsysUrl">API URL</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="redsysMerchantCode" class="form-control" name="redsysMerchantCode"
+                    [(ngModel)]="editConfig.redsysMerchantCode" [required]="editConfig.redsysEnabled"
+                    [disabled]="!editConfig.redsysEnabled">
+                <label for="redsysMerchantCode">Merchant code</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="redsysTerminal" class="form-control" name="redsysTerminal"
+                    [(ngModel)]="editConfig.redsysTerminal" [required]="editConfig.redsysEnabled"
+                    [disabled]="!editConfig.redsysEnabled">
+                <label for="redsysTerminal">Terminal</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="redsysSecretKey" class="form-control" name="redsysSecretKey"
+                    [(ngModel)]="editConfig.redsysSecretKey" [required]="editConfig.redsysEnabled"
+                    [disabled]="!editConfig.redsysEnabled">
+                <label for="redsysSecretKey">Secret Key</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="redsysNotificationUrl" class="form-control" name="redsysNotificationUrl"
+                    [(ngModel)]="editConfig.redsysNotificationUrl" [required]="editConfig.redsysEnabled"
+                    [disabled]="!editConfig.redsysEnabled">
+                <label for="redsysNotificationUrl">URL Notificación</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="redsysReturnUrl" class="form-control" name="redsysReturnUrl"
+                    [(ngModel)]="editConfig.redsysReturnUrl" [required]="editConfig.redsysEnabled"
+                    [disabled]="!editConfig.redsysEnabled">
+                <label for="redsysReturnUrl">URL Retorno OK</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="redsysCancelUrl" class="form-control" name="redsysCancelUrl"
+                    [(ngModel)]="editConfig.redsysCancelUrl" [required]="editConfig.redsysEnabled"
+                    [disabled]="!editConfig.redsysEnabled">
+                <label for="redsysCancelUrl">URL Retorno KO</label>
+            </div>
+        </div>
+        <div class="ba-control-group">
+            <div class="form-check ba-label">
+                <input class="form-check-input" type="checkbox" id="paypalEnabled"
+                    [(ngModel)]="editConfig.paypalEnabled" name="paypalEnabled">
+                <label class="form-check-label" for="paypalEnabled">
+                    Paypal
+                </label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="paypalUrl" class="form-control" name="paypalUrl"
+                    [(ngModel)]="editConfig.paypalUrl" [required]="editConfig.paypalEnabled"
+                    [disabled]="!editConfig.paypalEnabled">
+                <label for="paypalUrl">API URL</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="paypalClientId" class="form-control" name="paypalClientId"
+                    [(ngModel)]="editConfig.paypalClientId" [required]="editConfig.paypalEnabled"
+                    [disabled]="!editConfig.paypalEnabled">
+                <label for="paypalClientId">Client ID</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="paypalClientSecret" class="form-control" name="paypalClientSecret"
+                    [(ngModel)]="editConfig.paypalClientSecret" [required]="editConfig.paypalEnabled"
+                    [disabled]="!editConfig.paypalEnabled">
+                <label for="paypalClientSecret">Client Secret</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="paypalReturnUrl" class="form-control" name="paypalReturnUrl"
+                    [(ngModel)]="editConfig.paypalReturnUrl" [required]="editConfig.paypalEnabled"
+                    [disabled]="!editConfig.paypalEnabled">
+                <label for="paypalReturnUrl">URL Retorno OK</label>
+            </div>
+            <div class="form-floating" style="margin-bottom:5px">
+                <input type="text" id="paypalCancelUrl" class="form-control" name="paypalCancelUrl"
+                    [(ngModel)]="editConfig.paypalCancelUrl" [required]="editConfig.paypalEnabled"
+                    [disabled]="!editConfig.paypalEnabled">
+                <label for="paypalCancelUrl">URL Retorno KO</label>
+            </div>
+        </div>
+        <!-- <div class="mb-4 d-flex justify-content-center" *ngIf="preview">
+            <div style="position: relative;">
+                <img width="150px" [src]="preview" alt=""
+                    style="margin-top: 20px; border-style: solid; border-width: thin;">
+                <div class="btn btn-primary rounded-circle"
+                    style="margin-bottom: 5px; align-items: center; position:absolute; right: -25px;">
+                    <div>
+                        <i class="bi bi-pencil" style="font-size: x-large;"></i>
+                        <input type="file" accept=".jpg,.png" class="form-control" id="img" (change)="upload($event)"
+                            style="position: absolute; top: 0; right: 0; opacity:0" />
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- <div style="display: flex; justify-content: space-between; padding-bottom: 10px;">
+            <div style="text-align: center">
+                <button type="submit" class="btn btn-primary"
+                    [disabled]="familiaPost.invalid||(familiaPost.pristine && !imageChanged)">Guardar</button>
+            </div>
+        </div> -->
+    </form>
+</div>

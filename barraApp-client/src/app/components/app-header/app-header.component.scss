@@ -1,0 +1,28 @@
+.ba-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 5px;
+    align-items: center;
+    border-bottom-color: #c9c9c9;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    position: relative;
+    .ba-menu {
+        position: absolute;
+        top: 45px;
+        right: 10px;
+        border-style: solid;
+        border-width: thin;
+        padding: 5px 0;
+        background-color: whitesmoke;
+        min-width: 150px;
+        z-index: 10;
+        .ba-menu-item {
+            text-align: center;
+            cursor: pointer;
+            &:hover {
+                background-color: #c7c065;
+            }
+        }
+    }
+}

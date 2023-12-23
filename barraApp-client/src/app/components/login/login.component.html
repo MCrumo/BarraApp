@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div style="text-align:center; padding-top:100px">
+            <img src="/assets/images/logo-gran.jpg" height="150px">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 offset-md-4 mt-5">
+            <form (ngSubmit)="login()" from="ngform">
+                <div class="form-floating" style="margin-bottom:5px">
+                    <input type="email" id="username" class="form-control" name="email" [(ngModel)]="email" required>
+                    <label for="username">Email</label>
+                </div>
+                <div class="form-floating" style="margin-bottom:5px">
+                    <input type="password" id="password" class="form-control" name="password" [(ngModel)]="password"
+                        required>
+                    <label for="password">Contraseña</label>
+                </div>
+                <div style="text-align: center">
+                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                </div>
+            </form>
+        </div>
+        <div style="text-align: center;">
+            <label>No estas registrado? </label><button type="button" class="btn btn-link" [routerLink]="['/crearUsuario']">Crear nuevo usuario</button>
+        </div>
+        <div style="text-align: center;">
+            <label>Te has olvidado la contraseña? </label><button type="button" class="btn btn-link" [routerLink]="['']">Recuperar contraseña</button>
+        </div>
+    </div>
+</div>

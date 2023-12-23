@@ -1,0 +1,10 @@
+.row {
+    --bs-gutter-x: 0;
+    &.ba-selected {
+        background-color: red;
+    }
+}
+
+[class*="col-"]:not(:last-of-type) {
+    margin-bottom: 10px;
+}

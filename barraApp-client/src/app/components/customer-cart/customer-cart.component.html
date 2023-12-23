@@ -1,0 +1,109 @@
+<div *ngIf="currentOrder" class="d-flex flex-column" style="flex-grow: 1;">
+    <div class="overflow-auto" style="flex-grow: 1;">
+
+        <div *ngIf="currentOrder" class="d-flex flex-column">
+            <div class="row justify-content-center" style="--bs-gutter-x: 0;">
+                <div class="col-3 col-md-2" style="text-align: center;"><strong>Cantidad</strong></div>
+                <div class="col-4 col-md-3"><strong>Producto</strong></div>
+                <div class="col-2 col-md-2 text-right"><strong>Precio</strong></div>
+                <div class="col-3 col-md-2 text-right"><strong>Importe</strong></div>
+            </div>
+            <div class="row justify-content-center" style="--bs-gutter-x: 0;" *ngFor="let line of currentOrder.lines">
+                <div class="col-3 col-md-2" style="text-align: center;">
+                    <button *ngIf="currentOrder.status==='pendent'" class="btn rounded-circle btn-round btn-secondary"
+                        style="width: 25px; height: 25px;" (click)="decreaseQuantity(line)">
+                        <i class="bi bi-dash"></i>
+                    </button>
+                    {{ line.quantity }}
+                    <button *ngIf="currentOrder.status==='pendent'" class="btn rounded-circle btn-round btn-secondary"
+                        style="width: 25px; height: 25px;" (click)="increaseQuantity(line)">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                </div>
+                <div class="col-4 col-md-3">{{ line.product.nombre }}</div>
+                <div class="col-2 col-md-2 text-right">{{ formatCurrency(line.price) }}</div>
+                <div class="col-3 col-md-2 text-right">
+                    {{ formatCurrency(line.lineAmount) }}
+                </div>
+            </div>
+            <div *ngIf="currentOrder.status==='pendent'" class="row justify-content-center">
+                <div class="col-12 col-md-9" style="text-align:center">
+                    <button class="btn btn-primary" (click)="displayProductPicker=true">Añadir producto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-3 border-top">
+        <div class="row justify-content-center">
+            <div class="col-6 col-md-6" style="font-size: x-large; font-weight: 600;">
+                Total: {{ formatCurrency(currentOrder.totalAmount) }}
+            </div>
+            <div class="col-6 col-md-6 text-right">
+                <button *ngIf="currentOrder.status==='pendent'" class="btn btn-success" (click)="showPayButtons()">
+                    Pagar
+                </button>
+                <button *ngIf="currentOrder.status==='pagada'" class="btn btn-success"
+                    (click)="QrCode=currentOrder.QRCode">
+                    Recoger pedido
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- No hi ha cap comanda activa  -->
+<div *ngIf="!currentOrder" class="d-flex flex-column" style="flex-grow: 1;">
+    <div class="overflow-auto" style="flex-grow: 1;">
+        <div>
+            No hay pedido
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-9" style="text-align:center">
+                <button class="btn btn-primary" (click)="displayProductPicker=true">Añadir producto</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mostra codi QR  -->
+<div *ngIf="QrCode" class="ba-overlay" (click)="closeQR()">
+    <qrcode [qrdata]="QrCode" [width]="300"></qrcode>
+    <!-- <div>{{QrCode}}</div> -->
+</div>
+
+<!-- Mostra dialeg de pagament  -->
+<div *ngIf="displayPayButtons" class="ba-overlay">
+    <div class="payment-container" style="position:relative">
+        <div style="font-size: x-large; text-align: center">
+            Total a pagar<br>
+            <span style="font-size: 30px; font-weight: 700;">
+                {{ formatCurrency(currentOrder.totalAmount) }}
+            </span>
+        </div>
+        <div style="text-align:center">
+            Te redirigiremos a la<br>plataforma de pago que elijas
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <button *ngIf="configService.config.redsysEnabled" class="btn btn-primary" style="margin-top:10px" (click)="pay('redsys')">
+                <i class="bi bi-credit-card"></i>
+                Tarjeta de Crédito
+            </button>
+            <button *ngIf="configService.config.paypalEnabled" class="btn btn-primary" style="margin-top:10px" (click)="pay('paypal')">
+                <i class="bi bi-paypal"></i>
+                Paypal
+            </button>
+        </div>
+        <div *ngIf="waiting" class="spinner-container">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Cargando...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Selector de producto  -->
+<div *ngIf="displayProductPicker" class="ba-overlay">
+    <div class="product-selector-container" style="position:relative; display: flex;">
+        <ba-customer-product-picker (productSelected)="productSelected($event)"></ba-customer-product-picker>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="scanner-shell" [hidden]="!hasDevices" style="display: flex; flex-direction: column; padding: 10px 0;">
+  <div *ngIf="availableDevices.length!==1">
+    <div ngbDropdown class="d-inline-block" style="width:100%">
+      <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle  style="width:100%">
+        {{ deviceCurrent? deviceCurrent.label: 'No se ha seleccionado ninguna cámara'}}
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem *ngFor="let device of availableDevices" (click)="onDeviceSelectChange(device.deviceId)">{{device.label}}</button>
+        </div>
+    </div>
+  </div>
+  <div style="flex-grow: 1; display: flex;">
+    <zxing-scanner [torch]="torchEnabled" [device]="deviceCurrent" (deviceChange)="onDeviceChange($event)"
+      (scanSuccess)="onCodeResult($event)" [formats]="formatsEnabled" [tryHarder]="tryHarder"
+      (permissionResponse)="onHasPermission($event)" (scanError)="onScanError($event)" (camerasFound)="onCamerasFound($event)">
+    </zxing-scanner>
+  </div>
+  <section class="results" *ngIf="qrResultString">
+    <div>
+      <small>Result</small>
+      <strong>{{ qrResultString }}</strong>
+    </div>
+    <button mat-icon-button (click)="clearResult()">&times;</button>
+  </section>
+</div>
+
+<ng-container *ngIf="hasPermission === undefined">
+  <h2>Esperando permisos de acceso a dispositivos</h2>
+  <blockquote>
+    Si tu dispositivo no tienen cámaras, no se pedirán permisos.
+  </blockquote>
+</ng-container>
+
+<ng-container *ngIf="hasPermission === false">
+  <h2>Se ha denegado el acceso a la cámara, No se pueden leer coódigos QR sin esto. 😪</h2>
+</ng-container>
+
+<ng-container *ngIf="hasDevices === undefined">
+  <h2>No se pueden comprovar los dispositivos.</h2>
+  <blockquote>
+    Esto puede estar causado por algún error de seguridad.
+  </blockquote>
+</ng-container>
+
+<ng-container *ngIf="hasDevices === false">
+  <h2>No se han encontrado dispositivos</h2>
+  <blockquote>
+    Parece que tu dispositivo no tienen cámaras conectadas.
+  </blockquote>
+</ng-container>

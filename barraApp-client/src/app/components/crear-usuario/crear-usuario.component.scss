@@ -1,0 +1,28 @@
+* {
+	margin: 5px;
+	padding: 5px;
+}
+
+body {
+	background: #bfc185;
+}
+
+.container{
+	position:absolute;
+	width: auto;
+	height:auto;
+	top: calc(40% - 240px);
+	left: calc(45% - 180px);
+}
+
+form {
+	position: absolute;
+	text-align: center;
+	background: #fff;
+	width: 370px;
+	height:fit-content;
+	border-radius: 5px;
+	padding: 30px 20px 0 20px;
+	box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);
+	box-sizing: border-box;
+}

@@ -1,0 +1,26 @@
+.container{
+	position:absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: #00000061;
+	padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	max-width: unset;
+}
+
+form {
+	text-align: center;
+	background: #fff;
+	width: 370px;
+	height: fit-content;
+	border-radius: 5px;
+	padding: 30px 20px 0 20px;
+	box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);
+	box-sizing: border-box;
+}
+

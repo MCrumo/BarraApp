@@ -1,0 +1,33 @@
+
+<div class="container">
+    <form #familiaPost="ngForm" (ngSubmit)="onSubmit(familiaPost.value)">
+        <h3>CREA UN NUEVO USUARIO</h3>
+        <div class="form-floating">
+            <input type="email" id="user" class="form-control" name="user" ngModel required>
+            <label for="user">Email</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" id="pass" class="form-control" name="pass" ngModel required>
+            <label for="pass">Contraseña</label>
+        </div>
+        <div class="form-floating" >
+            <input type="text" id="name" class="form-control" name="name" ngModel required>
+            <label for="name">Nombre de usuario</label>
+        </div>
+        <div class="form-floating" >
+            <input type="text" id="surname" class="form-control" name="surname">
+            <label for="surname2">Apellidos</label>
+        </div>
+        <div class="form-floating" >
+            <input type="date" id="birth" class="form-control" name="birth" ngModel required>
+            <label for="birth">Fecha de nacimiento</label>
+        </div>
+        <div style="text-align: center">
+            <button type="submit" class="btn btn-primary">CREAR NUEVO USUARIO</button>
+        </div>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/admin']" routerLinkActive="router-link-active">RETURN</button>
+        </div>
+    </form>
+</div>
+

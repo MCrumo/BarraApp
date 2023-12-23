@@ -1,0 +1,53 @@
+<div class="ba-family-list-header">
+  <div style="flex-grow: 1; text-align: center; font-size: x-large; font-weight: 600;">
+    Familias de productos
+  </div>
+  <div class="form-check" style="text-align: right;">
+    <input class="form-check-input" type="checkbox" value="" id="showDisabled" [(ngModel)]="includeDisabled"
+      (change)="includeDisabledChanged($event)">
+    <label class="form-check-label" for="showDisabled">
+      Mostrar deshabilitadas
+    </label>
+  </div>
+</div>
+<div class="container" style="max-height: 100%; overflow: auto;">
+  <div class="row">
+    <div class="col-6 col-md-4 col-lg-3" *ngFor="let family of familias">
+      <div class="card">
+        <img [src]="family.fotoUrl" (error)="imageError($event, family)" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ family.nombre }}</h5>
+          <div class="ba-card-family-detail">
+            <div style="text-align:center; flex-grow: 1;">
+              <button [routerLink]="['/admin/families', family.id]" routerLinkActive="router-link-active"
+                class="btn btn-primary">Ver Productos</button>
+            </div>
+            <div style="display: flex; justify-content: space-around;">
+              <button *ngIf="!family.disabled" class="btn btn-rounded" (click)="deshabilitarFamilia(family.id)"
+                title="Deshabilitar familia">
+                <i class="bi bi-trash" style="font-size: x-large;"></i>
+              </button>
+              <button *ngIf="family.disabled" class="btn btn-rounded" (click)="habilitarFamilia(family.id)"
+                title="Habilitar familia">
+                <i class="bi bi-recycle" style="font-size: x-large;"></i>
+              </button>
+              <button class="btn btn-rounded" (click)="editFamily(family)" title="Editar familia">
+                <i class="bi bi-pencil" style="font-size: x-large;"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="family.agelimit"
+          style="position:absolute; width: 100%; background: #ff600054; text-align: center; font-weight: 600;">
+          {{family.agelimit|number:'1.0-0'}} años
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ba-admin-family-editor [family]="familySelected" (familyUpdated)="onFamilyUpdated($event)"></ba-admin-family-editor>
+<div class="ba-add-family-button">
+  <button class="btn btn-primary rounded-circle" (click)="newFamily()" title="Añadir familia">
+    <i class="bi bi-plus" style="font-size: x-large;"></i>
+  </button>
+</div>

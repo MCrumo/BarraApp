@@ -1,0 +1,54 @@
+.card {
+    height: 100%;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+[class*="col-"] {
+    margin-bottom: 20px;
+}
+
+.ba-family-list-header {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    padding-bottom: 5px;
+}
+
+.ba-add-family-button {
+    position: absolute;
+    left: 30px;
+    top: 50px;
+}
+
+.ba-card-family-detail {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .ba-family-list-header {
+        flex-direction: column;
+    }
+    .ba-add-family-button {
+        left: 0px;
+    }
+    .ba-card-family-detail {
+        align-items: unset;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+}
