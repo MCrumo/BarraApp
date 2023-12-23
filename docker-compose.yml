@@ -60,7 +60,7 @@ services:
       - 80
       - 443
     volumes:
-      - ./barraapp-client/dist/barra-app:/var/www/html
+      - ./barraApp-client/dist/barra-app:/var/www/html
       - ./nginx/default.conf:/etc/nginx/sites-available/default
     restart: unless-stopped
     depends_on:
