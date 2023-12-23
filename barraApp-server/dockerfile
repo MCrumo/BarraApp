@@ -1,0 +1,8 @@
+FROM node:18.17.1
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --production
+RUN npm install -g pm2
+COPY . .
+EXPOSE 8082
+CMD ["npm", "run", "start:prod"]

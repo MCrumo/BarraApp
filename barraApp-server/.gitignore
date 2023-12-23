@@ -1,0 +1,22 @@
+# Módulos y dependencias de Node.js
+node_modules/
+
+# Archivos de caché generados por npm
+package-lock.json
+npm-debug.log
+
+# Archivos y directorios generados por herramientas de desarrollo
+dist/
+coverage/
+.vscode/
+.DS_Store
+.env
+
+# Archivos de configuración locales
+config.local.js
+
+# Logs y archivos generados en tiempo de ejecución
+logs/
+*.log
+*.pid
+*.seed
