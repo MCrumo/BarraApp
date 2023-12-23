@@ -1,0 +1,70 @@
+services:
+ mysqldb:
+  container_name: mysqlcontainer
+  image: mysql:8.0.35
+  command: '--default-authentication-plugin=mysql_native_password'
+  restart: unless-stopped
+  volumes:
+  # - ./initBarraApp.sql:/docker-entrypoint-initdb.d/0_init.sql  
+   - ${PWD}/mysql-data:/var/lib/mysql
+  ports:
+   - 3307:3306 #3306:3306 
+  expose:
+   - 3306
+  environment:
+   MYSQL_DATABASE: BarraApp
+   MYSQL_USER: 'barraapp'
+   MYSQL_PASSWORD: 'ji71FoLC04!'
+   MYSQL_ROOT_PASSWORD: 'ji71FoLC04!'
+   MYSQL_TAGS: prod
+   MYSQL_NAME: mysqldb
+  networks:
+   - internalnet
+  
+ nodeapp:
+  container_name: nodecontainer
+  build: ./barraApp-server
+  image: nodeapp:1 
+  ports:
+   - 8082:8082
+  expose:
+   - 8082
+  depends_on:
+   - mysqldb
+  environment:
+   DB_HOST: mysqldb
+   DB_USER: 'barraapp'
+   DB_PASSWORD: 'ji71FoLC04!'
+   DB_NAME: BarraApp
+   DB_PORT: 3306
+   DB_CONNECTION_LIMIT: 10
+   SERVER_PORT: 8082
+   SERVICE_TAGS: prod
+   SERVICE_NAME: nodeappservice
+  restart: unless-stopped
+  networks:
+   - internalnet
+
+ angularapp:
+  container_name: angularcontainer
+  build: ./barraapp-client
+  image: angularapp:1 
+  ports:
+   - 80:80 #8080:80 
+   - 443:443 #8443:443
+  expose:
+   - 80
+   - 443
+  volumes:
+   - ./barraapp-client/dist/barra-app:/var/www/html
+   - ./deploy/default.conf:/etc/nginx/sites-available/default
+  restart: unless-stopped
+  depends_on:
+   - nodeapp
+  networks:
+   - internalnet
+
+
+networks:
+ internalnet:
+  driver: bridge
