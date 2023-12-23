@@ -61,7 +61,7 @@ services:
       - 443
     volumes:
       - ./barraApp-client/dist/barra-app:/var/www/html
-      - ./nginx/default.conf:/etc/nginx/sites-available/default
+      - ./barraApp-client/nginx/default.conf:/etc/nginx/sites-available/default
     restart: unless-stopped
     depends_on:
       - nodeapp
